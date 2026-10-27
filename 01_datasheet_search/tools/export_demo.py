@@ -282,7 +282,6 @@ def main() -> int:
             .replace("%%IDEC_README%%", readme_html(ROOT / "docs" / "idec_README.md",
                                                    {"workitem_example.png": ROOT / "docs" / "idec_img" / "workitem_example.png"}))
             .replace("%%DOCS_README%%", readme_html(ROOT / "docs" / "docs_README.md"))
-            .replace("%%TOP_README%%", readme_html(ROOT / "docs" / "submission_README.md"))
             .replace("%%GENERATED%%", data["generated"]))
     OUT.write_text(page, encoding="utf-8")
     single = sum(i["scope"] == "single" for i in items)
