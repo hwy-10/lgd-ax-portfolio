@@ -13,6 +13,7 @@ ZIP 구조
 
 from __future__ import annotations
 
+import os
 import re
 import subprocess
 import sys
@@ -35,8 +36,10 @@ PART3_BUILDERS = ["tools/export_study.py", "tools/export_docs.py"]
 # 제출물을 만드는 데만 쓰는 스크립트 (02 README 그림)
 NOT_SHIPPED = ["tools/make_workitem_png.py", "tools/demo_strips.py"]   # demo_strips 는 발표자료용이었다
 OUT_DIR = ROOT / "submission"
-DEFAULT_NAME = "LGD_AX_허윤.zip"
-TOP = "LGD_AX_허윤"
+# 제출 이름은 구글폼 규칙(지원직무_성명_전화번호 뒷자리 4자리)을 따르고 압축 안 맨 위 폴더도 같게 한다.
+# 전화번호가 공개 저장소에 올라가지 않도록 환경변수 SUBMISSION_TOP 으로 받는다
+TOP = os.getenv("SUBMISSION_TOP", "LGD_AX_허윤")
+DEFAULT_NAME = f"{TOP}.zip"
 PART1 = "01_datasheet_search"
 PART2 = "02_idec_project"
 PART3 = "03_local_docs"
