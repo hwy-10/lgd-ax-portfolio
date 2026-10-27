@@ -70,9 +70,16 @@ INCLUDE = [
     "tools/demo_template.html",
 ]
 
-# 제출 ZIP 의 01 은 판정 로직만 둔다. 전체 코드와 실행은 GitHub 저장소로 안내한다
+# 제출 ZIP 의 01 은 안내 README 만 둔다. 코드와 실행은 GitHub 저장소로 안내한다 (사용자 지시 2026.10.27)
 PART1_README = ROOT / "docs" / "part1_README.md"
-PART1_CORE = ["config.py", "evaluate.py", "src/*.py"]
+PART1_CORE: list[str] = []
+# 공개본(--full) 맨 위 README 에서 ZIP 전용 문구를 바꾼다. 문구가 없으면 실패한다
+FULL_README_EDITS = [
+    ("데이터시트 검색 도구 안내 (코드와 실행 파일은 GitHub)",
+     "데이터시트 검색 도구 (실행은 맨 위 `run_demo.bat`)"),
+    ("\n이 ZIP에는 보실 필요가 있는 것만 넣어서 GitHub 저장소와 구성이 조금 다릅니다. "
+     "데이터시트 검색 도구의 코드와 실행 파일은 GitHub에 있습니다.\n", ""),
+]
 # --full (GitHub 공개본) 에만 들어가는 파일: 맨 위 실행 파일, 데이터시트 출처 안내
 ROOT_BAT = ROOT / "docs" / "root_run_demo.bat"
 REPO_DATA_README = ROOT / "docs" / "repo_data_README.md"
@@ -182,12 +189,13 @@ def main() -> int:
     with zipfile.ZipFile(target, "w", zipfile.ZIP_DEFLATED) as archive:
         for path, arc in items:
             if full and arc == f"{TOP}/README.md":
-                # 공개본에는 01 전체가 있으므로 구성 표의 설명만 바꾼다
+                # 공개본에는 01 전체가 있으므로 ZIP 전용 문구를 바꾼다
                 text = path.read_text(encoding="utf-8")
-                old = "데이터시트 검색 도구의 핵심 코드 (전체 코드와 실행은 GitHub)"
-                if old not in text:
-                    raise SystemExit("README 구성 표 문구가 바뀌었습니다. make_submission.py 를 고쳐 주세요")
-                archive.writestr(arc, text.replace(old, "데이터시트 검색 도구 (실행은 맨 위 `run_demo.bat`)"))
+                for old, new in FULL_README_EDITS:
+                    if old not in text:
+                        raise SystemExit(f"README 문구가 바뀌었습니다. make_submission.py 를 고쳐 주세요: {old.strip()[:30]}")
+                    text = text.replace(old, new)
+                archive.writestr(arc, text)
                 continue
             archive.write(path, arc)
     size = target.stat().st_size / 1024 / 1024
