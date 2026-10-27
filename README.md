@@ -8,6 +8,8 @@ LG디스플레이 AX 전형 사전과제 제출물입니다.
 
 압축을 푼 뒤 `시연.html`을 브라우저로 열어 주세요. 별도 설치나 인터넷 연결 없이 동작하도록 구성하였습니다.
 
+온라인으로도 볼 수 있습니다: [시연 화면](https://hwy-10.github.io/lgd-ax-portfolio/%EC%8B%9C%EC%97%B0.html), [3부 문서 관리](https://hwy-10.github.io/lgd-ax-portfolio/03_local_docs/index.html)
+
 검색 단계는 제출한 코드를 실행한 결과이며 답변은 평가할 때 저장한 로컬 모델의 출력입니다.
 
 ## 구성
