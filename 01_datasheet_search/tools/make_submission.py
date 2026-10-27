@@ -1,20 +1,18 @@
 """제출용 ZIP 을 만든다. 비밀값이 들어가면 만들지 않고 실패한다.
 
-  python tools/make_submission.py [ZIP 파일 이름]
+  python tools/make_submission.py [ZIP 파일 이름] [--full]
 
 ZIP 구조
   <TOP>/README.md                       docs/submission_README.md
   <TOP>/시연.html                        docs/demo.html (tools/export_demo.py 로 새로 만든다)
-  <TOP>/발표자료.pptx, 발표자료.pdf        docs/datasheet_search.pptx, .pdf
-  <TOP>/01_datasheet_search/...         이 저장소
+  <TOP>/01_datasheet_search/...         핵심 코드만 (PART1_CORE). 실행은 GitHub 저장소에서
+                                        --full 이면 이 저장소 전체 (INCLUDE, GitHub 공개본용)
   <TOP>/02_idec_project/README.md       docs/idec_README.md 와 그림 한 장
   <TOP>/03_local_docs/index.html        홈, 캘린더, IDEC, 강의정리를 묶은 한 파일 (tools/export_docs.py)
 """
 
 from __future__ import annotations
 
-import base64
-import io
 import re
 import subprocess
 import sys
@@ -29,14 +27,13 @@ except Exception:
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = Path("C:/modulino_hub/schedule")
 SINGLE = ROOT / "build" / "docs_single" / "index.html"
-# 02 README. 작업 항목 그림을 README 안에 넣은 것을 build/ 에 만들어 담는다
+# 02 README 와 작업 항목 그림
 IDEC_README = ROOT / "docs" / "idec_README.md"
 IDEC_IMG = ROOT / "docs" / "idec_img" / "workitem_example.png"
-IDEC_README_OUT = ROOT / "build" / "idec_README.md"
 # 3부 한 파일을 만드는 스크립트. 개인 자료 경로를 읽으므로 ZIP 에는 넣지 않는다
 PART3_BUILDERS = ["tools/export_study.py", "tools/export_docs.py"]
 # 제출물을 만드는 데만 쓰는 스크립트 (02 README 그림)
-NOT_SHIPPED = ["tools/make_workitem_png.py"]
+NOT_SHIPPED = ["tools/make_workitem_png.py", "tools/demo_strips.py"]   # demo_strips 는 발표자료용이었다
 OUT_DIR = ROOT / "submission"
 DEFAULT_NAME = "LGD_AX_허윤.zip"
 TOP = "LGD_AX_허윤"
@@ -73,6 +70,13 @@ INCLUDE = [
     "tools/demo_template.html",
 ]
 
+# 제출 ZIP 의 01 은 판정 로직만 둔다. 전체 코드와 실행은 GitHub 저장소로 안내한다
+PART1_README = ROOT / "docs" / "part1_README.md"
+PART1_CORE = ["config.py", "evaluate.py", "src/*.py"]
+# --full (GitHub 공개본) 에만 들어가는 파일: 맨 위 실행 파일, 데이터시트 출처 안내
+ROOT_BAT = ROOT / "docs" / "root_run_demo.bat"
+REPO_DATA_README = ROOT / "docs" / "repo_data_README.md"
+
 FORBIDDEN_NAMES = {".env"}
 FORBIDDEN_PARTS = {".venv", ".git", "__pycache__", "vector_db", ".pytest_cache", "submission", "node_modules"}
 SECRET_PATTERNS = [
@@ -92,20 +96,27 @@ def glob(base: Path, patterns: list[str]) -> list[Path]:
     return list(dict.fromkeys(files))
 
 
-def entries() -> list[tuple[Path, str]]:
+def entries(full: bool = False) -> list[tuple[Path, str]]:
     items: list[tuple[Path, str]] = [
         (ROOT / "docs" / "submission_README.md", f"{TOP}/README.md"),
         (ROOT / "docs" / "demo.html", f"{TOP}/시연.html"),
-        (ROOT / "docs" / "datasheet_search.pptx", f"{TOP}/발표자료.pptx"),
-        (ROOT / "docs" / "datasheet_search.pdf", f"{TOP}/발표자료.pdf"),
-        (IDEC_README_OUT, f"{TOP}/{PART2}/README.md"),
+        # 02 README 와 그 그림. 그림은 README 옆 파일로 둔다 (README 안에 글자로 넣으면
+        # 마크다운을 그리지 않는 뷰어에서 긴 문자열로 보인다)
+        (IDEC_README, f"{TOP}/{PART2}/README.md"),
+        (IDEC_IMG, f"{TOP}/{PART2}/workitem_example.png"),
         (ROOT / "docs" / "docs_README.md", f"{TOP}/{PART3}/README.md"),
     ]
+    if full:
+        items += [(ROOT_BAT, f"{TOP}/run_demo.bat"), (REPO_DATA_README, f"{TOP}/{PART1}/data/README.md")]
+    else:
+        items.append((PART1_README, f"{TOP}/{PART1}/README.md"))
     for path, _ in items:
         if not path.exists():
             raise SystemExit(f"필수 파일이 없습니다: {path}")
-    items += [(p, f"{TOP}/{PART1}/{p.relative_to(ROOT).as_posix()}") for p in glob(ROOT, INCLUDE)
-              if p.relative_to(ROOT).as_posix() not in PART3_BUILDERS + NOT_SHIPPED]
+    replaced = {arc for _, arc in items}
+    items += [(p, arc) for p in glob(ROOT, INCLUDE if full else PART1_CORE)
+              if p.relative_to(ROOT).as_posix() not in PART3_BUILDERS + NOT_SHIPPED
+              and (arc := f"{TOP}/{PART1}/{p.relative_to(ROOT).as_posix()}") not in replaced]
     # 3부는 홈, 캘린더, IDEC, 강의정리를 묶은 HTML 한 파일 (tools/export_docs.py)
     items.append((SINGLE, f"{TOP}/{PART3}/index.html"))
     return items
@@ -129,30 +140,6 @@ def build_docs_single() -> None:
         print(result.stdout.decode("utf-8", "replace").strip())
         if result.returncode:
             raise SystemExit(f"{script} 실패. ZIP 을 만들지 않습니다.")
-
-
-def build_idec_readme() -> None:
-    """02 README 에 그림을 넣는다. 그림 파일을 따로 열지 않아도 README 에서 보이도록
-    data URI 로 바꿔 파일 맨 아래 참조로 붙인다 (본문 중간에 긴 문자열이 끼지 않게)."""
-    text = IDEC_README.read_text(encoding="utf-8")
-    if "](workitem_example.png)" not in text:
-        raise SystemExit("02 README 의 그림 자리를 찾지 못했습니다")
-    data = IDEC_IMG.read_bytes()
-    try:
-        from PIL import Image
-        image = Image.open(io.BytesIO(data)).convert("RGB")
-        # 2배로 찍은 그림이라 반으로 줄인다. 그림 크기를 맞춰 주지 않는 뷰어에서도 화면 폭에 들어가게
-        image = image.resize((image.width // 2, image.height // 2), Image.LANCZOS).quantize(colors=128)
-        buffer = io.BytesIO()
-        image.save(buffer, "PNG", optimize=True)
-        data = buffer.getvalue()
-    except ImportError:
-        pass
-    text = text.replace("](workitem_example.png)", "][workitem]")
-    text = text.rstrip("\n") + "\n\n[workitem]: data:image/png;base64," + base64.b64encode(data).decode() + "\n"
-    IDEC_README_OUT.parent.mkdir(exist_ok=True)
-    IDEC_README_OUT.write_text(text, encoding="utf-8")
-    print(f"{IDEC_README_OUT}  (그림 {len(data) / 1024:.0f} KB 를 README 안에 넣음)")
 
 
 def build_demo() -> None:
@@ -182,17 +169,26 @@ def check(items: list[tuple[Path, str]]) -> None:
 
 
 def main() -> int:
-    name = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_NAME
+    args = [a for a in sys.argv[1:] if a != "--full"]
+    full = "--full" in sys.argv[1:]
+    name = args[0] if args else DEFAULT_NAME
     build_docs_excerpt()
     build_demo()
     build_docs_single()
-    build_idec_readme()
-    items = entries()
+    items = entries(full)
     check(items)
     OUT_DIR.mkdir(exist_ok=True)
     target = OUT_DIR / name
     with zipfile.ZipFile(target, "w", zipfile.ZIP_DEFLATED) as archive:
         for path, arc in items:
+            if full and arc == f"{TOP}/README.md":
+                # 공개본에는 01 전체가 있으므로 구성 표의 설명만 바꾼다
+                text = path.read_text(encoding="utf-8")
+                old = "데이터시트 검색 도구의 핵심 코드 (전체 코드와 실행은 GitHub)"
+                if old not in text:
+                    raise SystemExit("README 구성 표 문구가 바뀌었습니다. make_submission.py 를 고쳐 주세요")
+                archive.writestr(arc, text.replace(old, "데이터시트 검색 도구 (실행은 맨 위 `run_demo.bat`)"))
+                continue
             archive.write(path, arc)
     size = target.stat().st_size / 1024 / 1024
     print(f"{target}  ({len(items)}개 파일, {size:.1f} MB)")

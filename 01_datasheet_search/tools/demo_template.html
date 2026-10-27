@@ -104,7 +104,7 @@ table.cmp td.n.hi { color: var(--blue); }
 <body>
 <header>
   <h1>AX 사전과제 시연</h1>
-  <p>실제 실행 결과를 저장한 화면입니다. 새 질문은 <code style="background:none;color:inherit">01_datasheet_search/run_demo.bat</code> 로 직접 넣을 수 있습니다.</p>
+  <p>실제 실행 결과를 저장한 화면입니다. 새 질문은 <a href="https://github.com/hwy-10/lgd-ax-portfolio" target="_blank" rel="noopener">GitHub 저장소</a>를 받아 <code style="background:none;color:inherit">run_demo.bat</code> 로 직접 넣을 수 있습니다.</p>
   <nav>
     <button data-tab="ask" class="on">1부 질문하기</button>
     <button data-tab="results">1부 검증 결과</button>
@@ -261,7 +261,7 @@ table.cmp td.n.hi { color: var(--blue); }
         return hit.length ? '<optgroup label="' + esc((D.type_label[t] || t) + " " + hit.length) + '">' +
           hit.map(function (x) { return '<option value="' + esc(x.id) + '">' + esc(x.id + "  " + x.question) + "</option>"; }).join("") + "</optgroup>" : "";
       }).join("");
-      count.textContent = f ? n + "개 찾음" + (n ? "" : ". 새 질문은 Python 이 있는 PC 에서 run_demo.bat 로") : "";
+      count.textContent = f ? n + "개 찾음" + (n ? "" : ". 새 질문은 GitHub 저장소의 run_demo.bat 로") : "";
       return n;
     };
     box2.value = "";

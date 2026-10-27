@@ -29,8 +29,6 @@ USB 허브 보드(modulino)를 설계하면서 여러 부품의 사양을 한 �
 | 인터넷 연결 | 처음 실행할 때 패키지 설치 (PyMuPDF, python-dotenv, httpx, streamlit) | 처음 실행만 |
 | [Ollama](https://ollama.com)와 `ollama pull gemma3:4b` (약 3.3GB) | ⑥ 답변 생성. 없어도 ①~⑤ 판정, 검증 결과 탭, 평가 스크립트는 모두 동작합니다 | 선택 |
 
-공개 저장소에는 데이터시트 PDF가 없습니다. 실행 전에 `data/README.md`의 주소에서 받아 같은 이름으로 넣어 주세요.
-
 ### 시연 화면
 
 ```

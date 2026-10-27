@@ -4,8 +4,6 @@ LG디스플레이 AX 전형 사전과제 제출물입니다.
 
 `01_datasheet_search`를 중심으로 봐 주시고 `02_idec_project`와 `03_local_docs`는 각 폴더의 README 정도만 가볍게 봐 주시면 감사하겠습니다.
 
-GitHub: https://github.com/hwy-10/lgd-ax-portfolio
-
 ## 바로 보기
 
 압축을 푼 뒤 `시연.html`을 브라우저로 열어 주세요. 별도 설치나 인터넷 연결 없이 동작하도록 구성하였습니다.
@@ -14,12 +12,24 @@ GitHub: https://github.com/hwy-10/lgd-ax-portfolio
 
 검색 단계는 제출한 코드의 실행 결과입니다. 답변은 평가할 때 저장한 로컬 모델의 출력입니다.
 
+## 직접 실행
+
+새 질문을 직접 넣어 보시려면 GitHub 저장소를 받아 주세요. 전체 코드와 평가 기록이 있습니다.
+
+https://github.com/hwy-10/lgd-ax-portfolio
+
+1. 저장소 페이지에서 `Code` → `Download ZIP`
+2. 압축을 풀고 맨 위의 `run_demo.bat` 더블클릭
+3. 브라우저에 시연 화면이 열립니다 (http://localhost:8501)
+
+Windows와 Python 3.10 이상이 필요합니다. 첫 실행 때 패키지를 설치하므로 몇 분 걸립니다. 답변 생성은 Ollama(`gemma3:4b`)가 있을 때만 동작하고 없으면 검색과 차단 판정까지 보입니다.
+
 ## 구성
 
 | 경로 | 내용 |
 |---|---|
 | `시연.html` | 데이터시트 검색 67문항의 실행 기록, 단계별 판정과 검증 결과 |
-| `01_datasheet_search/` | 데이터시트 검색 도구 |
+| `01_datasheet_search/` | 데이터시트 검색 도구 (실행은 맨 위 `run_demo.bat`) |
 | `02_idec_project/` | IDEC 2인 팀 운영 방식 (진행 중) |
 | `03_local_docs/` | 로컬 HTML 문서 관리 (제출용 발췌본) |
 
@@ -46,7 +56,6 @@ CH334/CH335는 4포트 USB 2.0 허브 컨트롤러 계열입니다.
 
 - 차단 기준: BM25 1위 점수 2.5, 질문 용어 등장 비율 0.67 (평가셋 38문항으로 결정)
 - 전수 검사 품번 13종: CH334/CH335 변종 10종, 주변 부품 2종, 패키지 코드 1종
-- 실행 방법과 설치 항목: `01_datasheet_search/README.md`
 
 ## 2. IDEC 팀 운영
 
@@ -80,7 +89,7 @@ IDEC 스마트 전자회로설계 챌린지 2인 팀의 작업 관리를 Plane�
 ## 실행 환경
 
 - `시연.html`과 `03_local_docs`: 브라우저만 있으면 열 수 있습니다
-- 코드 실행에 필요한 설치 항목: 각 폴더의 README
+- 코드 실행: 위 "직접 실행" 참고
 
 ## 참고
 

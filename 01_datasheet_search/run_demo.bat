@@ -31,6 +31,8 @@ if not exist .env (
 )
 
 echo [3/3] Starting demo: http://localhost:8501
+rem Streamlit runs headless, so the browser is opened once the server answers.
+if "%LGD_AX_NO_BROWSER%"=="" start "" /b "%PY%" tools\open_browser.py
 "%PY%" -m streamlit run app.py
 exit /b 0
 

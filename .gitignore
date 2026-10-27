@@ -2,6 +2,3 @@ __pycache__/
 *.py[cod]
 .env
 .venv/
-# 제조사 데이터시트는 올리지 않는다 (01_datasheet_search/data/README.md)
-01_datasheet_search/data/*.pdf
-01_datasheet_search/data/datasheets/
