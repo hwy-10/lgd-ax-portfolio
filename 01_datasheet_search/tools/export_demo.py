@@ -214,6 +214,44 @@ def readme_html(path: Path, images: dict[str, Path] | None = None) -> str:
     return MarkdownIt("commonmark").enable("table").render(text)
 
 
+def kpi(big: str, label: str, sub: str, orange: bool = False) -> str:
+    return (f'<div class="kpi"><div class="big{" o" if orange else ""}">{html.escape(big)}</div>'
+            f'<div class="l">{html.escape(label)}</div><div class="s">{html.escape(sub)}</div></div>')
+
+
+def results_body(S: dict, T: dict, M: dict, gate: str, chart: str, models_md: str) -> str:
+    """검증 결과 탭: 중요한 숫자는 크게, 나머지는 한 줄 설명과 접어 둔 원문으로"""
+    part1 = ('<h3>1. 변종 게이트<span class="cmd">python evaluate.py</span></h3><div class="kpis">'
+             + kpi(f"{S['worst_case_violations']}건", "최악 조건", "다른 변종을 검색 1위로 넣어도 걸러짐")
+             + kpi("빈 결과" if S['unknown_part_empty'] else "실패", "없는 품번 CH999Z", "답을 만들지 않음", orange=True)
+             + '</div><details><summary>스크립트 출력 원문</summary><pre>' + html.escape(gate) + '</pre></details>')
+    part2 = ('<h3>2. 차단 기준값<span class="cmd">python calibrate.py</span></h3><div class="kpis">'
+             + kpi(f"{T['min_coverage']}", "질문 용어 등장 비율",
+                   f"정답 질문 최저 {T['answerable_min_coverage']:.2f}, 문서에 없는 질문 최고 {T['absent_max_coverage']:.2f} 의 가운데")
+             + kpi(f"{T['min_score']}", "BM25 1위 점수 (보조)", f"점수만으로는 AEC-Q100 질문({T['absent_max_score']:.1f})을 못 막음")
+             + kpi(f"{T['correct']}/{T['answerable_total'] + T['absent_total']}", "평가셋 판정 일치",
+                   f"정답 질문 {T['answerable_pass']}개 통과, 문서에 없는 질문 {T['absent_block']}개 차단")
+             + '</div><details><summary>질문별 분포 차트</summary>'
+             + f'<img class="chart" alt="평가셋 질문별 BM25 1위 점수와 용어 등장 비율 분포" src="data:image/png;base64,{chart}"></details>')
+    rows = []
+    for m in M["models"]:
+        runs = m.get("runs") or [m]
+        strict = sorted({r["answerable_strict"] for r in runs})
+        strict_txt = f"{strict[0]}~{strict[-1]}" if len(strict) > 1 else f"{strict[0]}"
+        name = m["model"].split(":", 1)[1].replace("@nothink", "")
+        rows.append(f'<tr><td><b>{html.escape(name)}</b></td>'
+                    f'<td class="n">{strict_txt}/{m["answerable_total"]}</td>'
+                    f'<td class="n hi">{m["variant_correct"]}/{m["variant_total"]}</td>'
+                    f'<td class="n">{m["absent_correct"]}/{m["absent_total"]}</td>'
+                    f'<td class="n">{m["latency_median_s"]:.1f}초</td></tr>')
+    part3 = ('<h3>3. 답변 모델 비교<span class="cmd">python evaluate_answers.py</span></h3>'
+             '<table class="cmp"><tr><th>로컬 모델</th><th>엄격 정답 (3회)</th><th>변종 구분</th><th>문서에 없음 거절</th><th>응답 시간</th></tr>'
+             + "".join(rows) + '</table>'
+             '<p class="cmt">정답률은 nemotron, 변종 구분은 gemma3 가 높습니다. 4B 모델에 같은 표에서 변종 값을 고르는 일은 맡기기 어렵습니다.</p>'
+             '<details><summary>전체 표와 반복 실행 결과</summary>' + models_md + '</details>')
+    return part1 + part2 + part3
+
+
 def md_to_html(md: str) -> str:
     """model_comparison.md 정도의 마크다운(제목, 목록, 표, 문단)만 바꾼다."""
     out, table, bullets = [], [], []
@@ -275,10 +313,8 @@ def main() -> int:
     blob = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     page = (TEMPLATE
             .replace("%%DATA%%", blob)
-            .replace("%%GATE%%", html.escape(gate_text()))
-            .replace("%%MODELS%%", md_to_html((RESULTS_DIR / "model_comparison.md").read_text(encoding="utf-8")))
-            .replace("%%TAKEAWAY%%", html.escape((RESULTS_DIR / "model_takeaway.txt").read_text(encoding="utf-8").strip()).replace("\n", "<br>"))
-            .replace("%%CHART%%", chart)
+            .replace("%%RESULTS_BODY%%", results_body(S, load("threshold.json"), load("model_comparison.json"), gate_text(), chart,
+                                                      md_to_html((RESULTS_DIR / "model_comparison.md").read_text(encoding="utf-8"))))
             .replace("%%IDEC_README%%", readme_html(ROOT / "docs" / "idec_README.md",
                                                    {"workitem_example.png": ROOT / "docs" / "idec_img" / "workitem_example.png"}))
             .replace("%%DOCS_README%%", readme_html(ROOT / "docs" / "docs_README.md"))
