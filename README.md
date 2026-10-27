@@ -4,6 +4,8 @@ LG디스플레이 AX 전형 사전과제 제출물입니다.
 
 `01_datasheet_search`를 중심으로 봐 주시고 `02_idec_project`와 `03_local_docs`는 각 폴더의 README 정도만 가볍게 봐 주시면 감사하겠습니다.
 
+GitHub: https://github.com/hwy-10/lgd-ax-portfolio
+
 ## 바로 보기
 
 압축을 푼 뒤 `시연.html`을 브라우저로 열어 주세요. 별도 설치나 인터넷 연결 없이 동작하도록 구성하였습니다.
