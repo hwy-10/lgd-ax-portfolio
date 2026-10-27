@@ -1,0 +1,2 @@
+# Windows batch files must keep CRLF in the downloaded ZIP (cmd misreads labels with LF only)
+*.bat -text
