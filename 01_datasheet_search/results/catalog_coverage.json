@@ -1,0 +1,24 @@
+{
+ "bom_refs": 98,
+ "bom_rows": 53,
+ "documents": 5,
+ "registered": 6,
+ "numbered_unregistered": 8,
+ "generic": 84,
+ "registered_refs": [
+  "U3",
+  "U1, U2",
+  "U5",
+  "U7",
+  "U6"
+ ],
+ "unregistered_parts": [
+  "USBLC6-4SC6-ES (USB ESD)",
+  "BAT54W (RESET 쇼트키)",
+  "12V 5A 배럴잭 PJ-102AH",
+  "DMP3099L-7",
+  "SMAJ15CA",
+  "SMAJ15A",
+  "BZT52C15"
+ ]
+}

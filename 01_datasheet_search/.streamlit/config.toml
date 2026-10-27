@@ -1,0 +1,12 @@
+[client]
+toolbarMode = "minimal"
+
+[server]
+headless = true
+address = "localhost"
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "light"

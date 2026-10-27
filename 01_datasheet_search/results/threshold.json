@@ -1,0 +1,22 @@
+{
+ "min_score": 2.5,
+ "min_coverage": 0.67,
+ "answerable_pass": 28,
+ "answerable_total": 28,
+ "absent_block": 10,
+ "absent_total": 10,
+ "correct": 38,
+ "answerable_min_coverage": 1.0,
+ "absent_max_coverage": 0.333,
+ "answerable_min_score": 4.854,
+ "absent_max_score": 12.479,
+ "score_only_best": {
+  "min_score": 4.5,
+  "min_coverage": 0.0,
+  "answerable_pass": 28,
+  "answerable_total": 28,
+  "absent_block": 9,
+  "absent_total": 10,
+  "correct": 37
+ }
+}

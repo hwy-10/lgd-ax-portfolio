@@ -1,0 +1,117 @@
+{
+ "generated_at": "2026-10-26T23:04:39",
+ "min_score": 2.5,
+ "min_coverage": 0.67,
+ "retrieval": {
+  "total": 38,
+  "answerable": 28,
+  "absent": 10,
+  "hit": 28,
+  "blocked": 10,
+  "answerable_blocked": 0
+ },
+ "models": [
+  {
+   "model": "ollama:gemma3:4b",
+   "served_by": [
+    "gemma3:4b"
+   ],
+   "answerable_correct": 21,
+   "answerable_strict": 18,
+   "answerable_total": 28,
+   "variant_strict": 5,
+   "variant_correct": 7,
+   "variant_total": 8,
+   "wrong_refusals": 4,
+   "absent_correct": 10,
+   "absent_total": 10,
+   "absent_blocked_before_llm": 10,
+   "llm_calls": 28,
+   "errors": 0,
+   "fallbacks": 0,
+   "check_passed": 21,
+   "check_total": 24,
+   "unsupported_numbers": 0,
+   "mixed_refusals": 0,
+   "invalid_citations": 3,
+   "input_tokens_avg": 1517,
+   "output_tokens_avg": 44,
+   "output_tokens_total": 1237,
+   "latency_median_s": 11.39,
+   "latency_max_s": 40.32,
+   "runs": [
+    {
+     "answerable_correct": 21,
+     "answerable_strict": 18,
+     "variant_correct": 7,
+     "variant_strict": 5
+    },
+    {
+     "answerable_correct": 20,
+     "answerable_strict": 17,
+     "variant_correct": 7,
+     "variant_strict": 5
+    },
+    {
+     "answerable_correct": 20,
+     "answerable_strict": 17,
+     "variant_correct": 7,
+     "variant_strict": 5
+    }
+   ],
+   "unstable": [
+    "A01"
+   ]
+  },
+  {
+   "model": "ollama:nemotron-3-nano:4b@nothink",
+   "served_by": [
+    "nemotron-3-nano:4b"
+   ],
+   "answerable_correct": 23,
+   "answerable_strict": 21,
+   "answerable_total": 28,
+   "variant_strict": 4,
+   "variant_correct": 4,
+   "variant_total": 8,
+   "wrong_refusals": 2,
+   "absent_correct": 10,
+   "absent_total": 10,
+   "absent_blocked_before_llm": 10,
+   "llm_calls": 28,
+   "errors": 0,
+   "fallbacks": 0,
+   "check_passed": 24,
+   "check_total": 26,
+   "unsupported_numbers": 0,
+   "mixed_refusals": 2,
+   "invalid_citations": 0,
+   "input_tokens_avg": 1568,
+   "output_tokens_avg": 54,
+   "output_tokens_total": 1499,
+   "latency_median_s": 12.78,
+   "latency_max_s": 23.91,
+   "runs": [
+    {
+     "answerable_correct": 23,
+     "answerable_strict": 21,
+     "variant_correct": 4,
+     "variant_strict": 4
+    },
+    {
+     "answerable_correct": 23,
+     "answerable_strict": 21,
+     "variant_correct": 4,
+     "variant_strict": 4
+    },
+    {
+     "answerable_correct": 23,
+     "answerable_strict": 21,
+     "variant_correct": 4,
+     "variant_strict": 4
+    }
+   ],
+   "unstable": []
+  }
+ ]
+}

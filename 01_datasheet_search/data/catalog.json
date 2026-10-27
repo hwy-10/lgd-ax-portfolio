@@ -1,0 +1,56 @@
+{
+  "project": "modulino hub ver1 (4포트 USB 2.0 허브 보드)",
+  "bom_source": "data/modulino_BOM_cost_estimate.md",
+  "documents": [
+    {
+      "id": "ch334",
+      "file": "data/CH334_CH335_V2.5.pdf",
+      "title": "CH334/CH335 Datasheet V2.5",
+      "manufacturer": "WCH",
+      "role": "USB 허브 컨트롤러",
+      "variant_patterns": ["(?<![A-Za-z0-9])(CH33[45][FHLPQRSU])(?![A-Za-z0-9])"],
+      "family_patterns": ["(?<![A-Za-z0-9])CH33[45](?![0-9])"],
+      "note": "주문 정보가 없어 접미사 한 글자가 변종이다. 표 1-2 와 3.1 에 변종별 차이"
+    },
+    {
+      "id": "tps2552",
+      "file": "data/datasheets/TPS2552_SLVS841F.pdf",
+      "title": "TPS2552/53 Datasheet SLVS841F",
+      "manufacturer": "TI",
+      "role": "포트 전원 스위치",
+      "variant_patterns": ["(?<![A-Za-z0-9])(TPS255[23](?:[-–]1)?)(?=DBV|DRV|[^A-Za-z0-9\\-–]|$)"],
+      "family_patterns": ["(?<![A-Za-z0-9])TPS255[x0-9]"],
+      "note": "숫자 끝자리(2/3)가 EN 극성, -1 이 래치오프 변종. DBV/DRV 는 패키지, R 은 릴 포장"
+    },
+    {
+      "id": "lmr33630",
+      "file": "data/datasheets/LMR33630.pdf",
+      "title": "LMR33630 Datasheet SNVSAN3F",
+      "manufacturer": "TI",
+      "role": "12V→5V 벅 컨버터",
+      "variant_patterns": ["(?<![A-Za-z0-9])(LMR33630[ABC])(?=DDA|RNX|[^A-Za-z0-9]|$)"],
+      "family_patterns": ["(?<![A-Za-z0-9])LMR33630"],
+      "note": "A/B/C 가 스위칭 주파수 400 kHz / 1.4 MHz / 2.1 MHz. DDA/RNX 는 패키지"
+    },
+    {
+      "id": "tps7a20",
+      "file": "data/datasheets/TPS7A2033.pdf",
+      "title": "TPS7A20 Datasheet",
+      "manufacturer": "TI",
+      "role": "3.3V LDO",
+      "variant_patterns": ["(?<![A-Za-z0-9])(TPS7A20\\d{2,3})(?=P|[^A-Za-z0-9]|$)"],
+      "family_patterns": ["(?<![A-Za-z0-9])TPS7A20"],
+      "note": "TPS7A20 뒤 숫자가 출력 전압 (33 = 3.3 V). P 는 방전 기능, DBV 는 패키지"
+    },
+    {
+      "id": "lm66100",
+      "file": "data/datasheets/LM66100.pdf",
+      "title": "LM66100 Datasheet SLVSEZ8A",
+      "manufacturer": "TI",
+      "role": "아이디얼 다이오드 (전원 OR)",
+      "variant_patterns": ["(?<![A-Za-z0-9])(LM66100)(?=DCK|[^A-Za-z0-9]|$)"],
+      "family_patterns": ["(?<![A-Za-z0-9])LM66100"],
+      "note": "변종 1종. DCK 는 패키지, R 은 릴 포장"
+    }
+  ]
+}

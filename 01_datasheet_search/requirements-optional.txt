@@ -1,0 +1,8 @@
+# 클라우드 답변 모델 (.env 에 API 키를 넣을 때)
+openai
+anthropic
+# 선택 경로 (임베딩 + ChromaDB). 기본 검색은 쓰지 않는다.
+chromadb
+# 발표 자료 생성 (차트, 화면 캡처)
+matplotlib
+playwright

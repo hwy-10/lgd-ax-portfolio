@@ -1,0 +1,34 @@
+{
+ "chunks": 90,
+ "variants_total": 13,
+ "variants_family": [
+  "CH334F",
+  "CH334H",
+  "CH334L",
+  "CH334P",
+  "CH334Q",
+  "CH334R",
+  "CH334S",
+  "CH334U",
+  "CH335F",
+  "CH335P"
+ ],
+ "variants_other": [
+  "CH213K",
+  "CH412K",
+  "QFN16C"
+ ],
+ "gate_checked": 1000,
+ "gate_violations": 0,
+ "worst_case_violations": 0,
+ "unknown_part_empty": true,
+ "evalset_total": 38,
+ "evalset_answerable": 28,
+ "evalset_variant": 8,
+ "evalset_absent": 10,
+ "hit_at_5": 28,
+ "answerable_passed": 28,
+ "absent_blocked": 10,
+ "min_score": 2.5,
+ "min_coverage": 0.67
+}

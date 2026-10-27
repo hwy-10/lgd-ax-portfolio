@@ -1,0 +1,37 @@
+[
+  {"id": "C1", "doc": "ch334", "type": "answerable", "question": "CH334U의 동작 전압(VDD33)은?", "evidence_must": [["3.3"]], "answer_must": [["3.3"]]},
+  {"id": "C2", "doc": "ch334", "type": "variant", "question": "CH334R의 패키지는?", "target": "CH334R", "evidence_must": [["qsop16"]], "answer_must": [["qsop16"]], "answer_must_not": ["qsop28"]},
+
+  {"id": "T1", "doc": "tps2552", "type": "answerable", "question": "TPS2552의 EN 핀 극성은?", "target": "TPS2552", "evidence_must": [["activelowforthetps2552"]], "answer_must": [["low", "로우", "낮음"]]},
+  {"id": "T2", "doc": "tps2552", "type": "variant", "question": "TPS2553의 EN 핀 극성은?", "target": "TPS2553", "evidence_must": [["activehighforthetps2553"]], "answer_must": [["high", "하이", "높음"]]},
+  {"id": "T3", "doc": "tps2552", "type": "answerable", "question": "TPS2552의 전류 제한 조정 범위는?", "evidence_must": [["75ma"], ["1700ma"]], "answer_must": [["75"], ["1700", "1.7"]]},
+  {"id": "T4", "doc": "tps2552", "type": "answerable", "question": "TPS2552의 동작 입력 전압 범위는?", "evidence_must": [["2.5v"], ["6.5v"]], "answer_must": [["2.5"], ["6.5"]]},
+  {"id": "T5", "doc": "tps2552", "type": "variant", "question": "TPS2552-1의 과전류 시 동작 방식은?", "target": "TPS2552-1", "evidence_must": [["latch-off"]], "answer_must": [["latch", "래치"]]},
+
+  {"id": "L1", "doc": "lmr33630", "type": "answerable", "question": "LMR33630의 입력 전압 범위는?", "evidence_must": [["3.8v"], ["36v"]], "answer_must": [["3.8"], ["36"]]},
+  {"id": "L2", "doc": "lmr33630", "type": "variant", "question": "LMR33630A의 스위칭 주파수는?", "target": "LMR33630A", "evidence_must": [["400khz"]], "answer_must": [["400"]], "answer_must_not": ["1400", "2100"]},
+  {"id": "L3", "doc": "lmr33630", "type": "variant", "question": "LMR33630C의 스위칭 주파수는?", "target": "LMR33630C", "evidence_must": [["2100khz", "2.1mhz"]], "answer_must": [["2100", "2.1"]]},
+  {"id": "L4", "doc": "lmr33630", "type": "answerable", "question": "LMR33630의 최대 출력 전류는?", "evidence_must": [["3a"]], "answer_must": [["3a"]]},
+
+  {"id": "P1", "doc": "tps7a20", "type": "answerable", "question": "TPS7A2033의 입력 전압 범위는?", "evidence_must": [["1.6v"], ["6.0v"]], "answer_must": [["1.6"], ["6.0", "6v"]]},
+  {"id": "P2", "doc": "tps7a20", "type": "answerable", "question": "TPS7A2033의 정지 전류는?", "evidence_must": [["6.5μa", "6.5µa"]], "answer_must": [["6.5"]]},
+  {"id": "P3", "doc": "tps7a20", "type": "answerable", "question": "TPS7A2033의 출력 전압 노이즈는?", "evidence_must": [["7μvrms", "7µvrms"]], "answer_must": [["7μv", "7µv", "7uv"]]},
+
+  {"id": "M1", "doc": "lm66100", "type": "answerable", "question": "LM66100의 동작 전압 범위는?", "evidence_must": [["1.5v"], ["5.5v"]], "answer_must": [["1.5"], ["5.5"]]},
+  {"id": "M2", "doc": "lm66100", "type": "answerable", "question": "LM66100의 최대 연속 전류는?", "evidence_must": [["1.5a"]], "answer_must": [["1.5"]]},
+  {"id": "M3", "doc": "lm66100", "type": "answerable", "question": "LM66100의 온저항은?", "evidence_must": [["79-mω", "79mω"]], "answer_must": [["79"]]},
+
+  {"id": "D1", "doc": "lmr33630", "type": "refdes", "question": "U5의 스위칭 주파수는?", "target": "LMR33630A", "evidence_must": [["400khz"]], "answer_must": [["400"]], "answer_must_not": ["1400", "2100"]},
+  {"id": "D2", "doc": "tps2552", "type": "refdes", "question": "U1의 EN 핀 극성은?", "target": "TPS2552", "evidence_must": [["activelowforthetps2552"]], "answer_must": [["low", "로우", "낮음"]]},
+
+  {"id": "X1", "route": "unregistered", "type": "blocked", "question": "U4의 정전기 보호 전압은?", "why": "U4 = USBLC6-4SC6-ES. BOM 에는 있지만 데이터시트 미등록"},
+  {"id": "X2", "route": "unregistered", "type": "blocked", "question": "BAT54W의 순방향 전압은?", "why": "BOM 의 리셋 쇼트키. 데이터시트 미등록"},
+  {"id": "X3", "route": "unregistered", "type": "blocked", "question": "R35 값은?", "why": "수동 소자. 값은 BOM 이 정본"},
+  {"id": "X4", "route": "unknown", "type": "blocked", "question": "TPS2560의 전류 제한은?", "why": "프로젝트 BOM 에 없는 품번"},
+  {"id": "X5", "route": "unknown", "type": "blocked", "question": "CH999Z의 동작 전압은?", "why": "존재하지 않는 품번"},
+  {"id": "X6", "route": "none", "type": "blocked", "question": "동작 온도 범위는?", "why": "어느 부품인지 없음"},
+  {"id": "X7", "route": "multi", "type": "blocked", "question": "TPS2552와 LMR33630의 입력 전압 범위 차이는?", "why": "두 부품 비교"},
+  {"id": "X8", "doc": "lmr33630", "type": "blocked", "question": "LMR33630의 HDMI 지원 여부는?", "why": "문서는 맞지만 내용이 없음"},
+  {"id": "X9", "doc": "tps7a20", "type": "blocked", "question": "TPS7A2033의 색상은?", "why": "판정할 용어가 없음"},
+  {"id": "X10", "doc": "lm66100", "type": "blocked", "question": "LM66100의 Bluetooth 지원 여부는?", "why": "문서는 맞지만 내용이 없음"}
+]

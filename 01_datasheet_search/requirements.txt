@@ -1,0 +1,4 @@
+PyMuPDF
+python-dotenv
+httpx
+streamlit

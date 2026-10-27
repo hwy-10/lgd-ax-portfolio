@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AX 사전과제 시연</title>
+<!-- tools/export_demo.py 가 만든다. 손으로 고치지 않는다 -->
+<style>
+:root {
+  --ink: #1F2328; --muted: #5B6168; --line: #DADDE1; --tint: #F3F5F7; --dark: #17202A;
+  --blue: #2A78D6; --blue-bg: #E8F1FC; --orange: #D2551F; --orange-bg: #FBEDE7;
+  --green: #1A7F37; --green-bg: #E6F4EA; --yellow-bg: #FFF6DA; --bg: #FFFFFF;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif; font-size: 15px; line-height: 1.6; }
+header { background: var(--dark); color: #fff; padding: 22px 32px 0; }
+header h1 { margin: 0; font-size: 24px; }
+header p { margin: 4px 0 0; color: #C9D1D9; font-size: 14px; }
+header a { color: #9CC7FF; }
+nav { display: flex; gap: 4px; margin-top: 16px; flex-wrap: wrap; }
+nav button { border: 0; background: transparent; color: #C9D1D9; font: inherit; font-size: 15px;
+  padding: 10px 16px; border-radius: 8px 8px 0 0; cursor: pointer; }
+nav button.on { background: var(--bg); color: var(--ink); font-weight: bold; }
+main { max-width: 1180px; margin: 0 auto; padding: 24px 32px 60px; }
+section { display: none; }
+section.on { display: block; }
+h2 { font-size: 20px; margin: 0 0 6px; }
+h3 { font-size: 17px; margin: 28px 0 8px; }
+h4 { font-size: 15px; margin: 18px 0 6px; }
+.lead { color: var(--muted); margin: 0 0 16px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-bottom: 14px; }
+.seg button { border: 0; background: #fff; font: inherit; padding: 8px 16px; cursor: pointer; color: var(--muted); }
+.seg button.on { background: var(--dark); color: #fff; }
+.scn { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.scn button { font: inherit; text-align: left; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--tint); cursor: pointer; }
+.scn button b { display: block; }
+.scn button span { color: var(--muted); font-size: 13px; }
+.scn button.on { border-color: var(--blue); background: var(--blue-bg); }
+.pick { margin: 12px 0 4px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.pick input { font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; width: 260px; }
+.pick select { font: inherit; padding: 6px 8px; max-width: 100%; border: 1px solid var(--line); border-radius: 6px; }
+.why { color: var(--muted); font-size: 14px; margin: 6px 0 14px; min-height: 1.6em; }
+.q { font-size: 18px; font-weight: bold; margin: 8px 0 12px; }
+.step { display: grid; grid-template-columns: 210px 1fr; gap: 16px; border: 1px solid var(--line);
+  border-radius: 8px; padding: 12px 16px; margin-bottom: 8px; }
+.step .k b { display: block; }
+.chip { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 13px; font-weight: bold; }
+.chip.ok, .chip.blue { background: var(--blue-bg); color: var(--blue); }
+.chip.pass { background: var(--green-bg); color: var(--green); }
+.chip.no { background: var(--orange-bg); color: var(--orange); }
+.chip.gray { background: var(--tint); color: var(--muted); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 6px 0; }
+th, td { border: 1px solid var(--line); padding: 5px 9px; text-align: left; vertical-align: top; }
+th { background: var(--tint); }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.ans { border-radius: 8px; padding: 12px 16px; margin: 16px 0 8px; white-space: pre-wrap; }
+.ans.yes { background: var(--green-bg); }
+.ans.no { background: var(--yellow-bg); }
+.meta { font-size: 14px; margin: 4px 0; }
+.note { border-left: 4px solid var(--orange); background: var(--orange-bg); padding: 8px 12px; margin: 10px 0; font-size: 14px; }
+details { border: 1px solid var(--line); border-radius: 6px; margin: 6px 0; }
+summary { cursor: pointer; padding: 6px 10px; font-size: 14px; }
+pre { white-space: pre-wrap; word-break: break-word; background: var(--tint); padding: 12px 14px; border-radius: 6px;
+  font-family: Consolas, "D2Coding", monospace; font-size: 13px; line-height: 1.5; margin: 6px 0; }
+details pre { margin: 0 8px 8px; }
+code { font-family: Consolas, monospace; background: var(--tint); padding: 0 4px; border-radius: 3px; font-size: 13px; }
+.tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 10px 0 6px; }
+.tile { background: var(--tint); border-radius: 10px; padding: 14px 16px; }
+.tile .big { font-size: 30px; font-weight: bold; color: var(--blue); }
+.tile .big.o { color: var(--orange); }
+.tile .l { font-weight: bold; }
+.tile .s { color: var(--muted); font-size: 13px; }
+img.chart { max-width: 100%; border: 1px solid var(--line); border-radius: 6px; }
+.go { display: inline-block; background: var(--blue); color: #fff; text-decoration: none; padding: 10px 18px; border-radius: 8px; font-weight: bold; }
+.foot { color: var(--muted); font-size: 13px; margin-top: 30px; }
+@media (max-width: 760px) {
+  header, main { padding-left: 16px; padding-right: 16px; }
+  .scn, .tiles { grid-template-columns: 1fr 1fr; }
+  .step { grid-template-columns: 1fr; gap: 4px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>AX 사전과제 시연</h1>
+  <p>설치 없이 보는 실행 기록이다. 아래 출력은 모두 Python 코드를 실제로 돌려 저장한 것이다 (%%GENERATED%%, <code style="background:none;color:inherit">tools/export_demo.py</code>).
+     Python 3.10 이상이 있는 PC 에서는 <code style="background:none;color:inherit">01_datasheet_search/run_demo.bat</code> 로 새 질문을 직접 넣을 수 있다 (패키지 설치에 인터넷 필요).
+     &nbsp;<a href="발표자료.pdf">발표자료</a> &nbsp;<a href="README.md">README</a></p>
+  <nav>
+    <button data-tab="ask" class="on">1부 질문하기</button>
+    <button data-tab="results">1부 검증 결과</button>
+    <button data-tab="idec">2부 팀 운영</button>
+    <button data-tab="docs">3부 문서 관리</button>
+  </nav>
+</header>
+<main>
+
+<section id="ask" class="on">
+  <h2>데이터시트 검색 도구</h2>
+  <p class="lead">질문하면 모델을 부르기 전까지의 판정을 단계별로 보여 준다. 통과한 경우에만 모델 답변이 붙고, 그 답을 근거 원문과 다시 대조한다.
+    검색 단계는 지금 코드로 다시 돌린 결과이고, 답변은 평가 때 로컬 모델(gemma3:4b)이 낸 기록이다.
+    평가셋 67문항에는 답하지 않아야 하는 질문 20개(문서에 없는 사양, 없는 품번, 미등록 부품)도 들어 있다.</p>
+  <div class="seg" id="scope">
+    <button data-scope="single" class="on">CH334 한 권</button>
+    <button data-scope="catalog">modulino 부품 전체 (문서 5권)</button>
+  </div>
+  <div class="scn" id="scenarios"></div>
+  <div class="pick"><label for="all">평가셋에서 고르기</label><select id="all"></select>
+    <input id="filter" type="search" placeholder="질문 찾기 (예: TPS2553, 온도, HDMI)"><span id="count" class="meta" style="color:var(--muted)"></span></div>
+  <div class="why" id="why"></div>
+  <div id="result"></div>
+</section>
+
+<section id="results">
+  <h2>검증 결과</h2>
+  <p class="lead">숫자는 전부 스크립트 출력이다. 앞의 둘은 모델 없이 PDF, 청크, BM25 만으로 돈다.</p>
+  <div class="tiles" id="tiles"></div>
+  <h3>1. 변종 게이트 전수 검사 <code>python evaluate.py</code></h3>
+  <pre>%%GATE%%</pre>
+  <h3>2. 근거 충분성 기준값 <code>python calibrate.py</code></h3>
+  <p class="lead">평가셋 질문마다 BM25 1위 점수와 질문 용어가 근거에 나오는 비율을 찍었다. 점수로는 두 집단이 겹치고 용어 비율로는 갈린다.</p>
+  <img class="chart" alt="평가셋 질문별 BM25 1위 점수와 용어 등장 비율 분포" src="data:image/png;base64,%%CHART%%">
+  <h3>3. 모델 비교 <code>python evaluate_answers.py</code></h3>
+  <div>%%MODELS%%</div>
+  <div class="note">%%TAKEAWAY%%</div>
+  <p class="meta">모두 이 PC 에서 도는 무료 로컬 모델(Ollama)이다. 클라우드 모델(Claude Fable 5.1)은 같은 스크립트에 모델 이름만 바꿔 올리도록 준비했고, 비용 때문에 이번 제출에서는 실행하지 않았다.</p>
+</section>
+
+<section id="idec">
+  <h2>IDEC 팀 운영</h2>
+  <p class="lead">IDEC 스마트 전자회로설계 챌린지 2인 팀의 작업 관리를 Plane 으로 자동화했다. 팀 운영 규격을 직접 작성해 Claude 에 지시문으로 주었고,
+    작업 목록은 스크립트로 Plane 에 등록하면서 규격을 지켰는지 검사했다. 실행할 것은 없고 README 에 정리했다.</p>
+  <div class="tiles">
+    <div class="tile"><div class="big">51</div><div class="l">작업</div><div class="s">모듈 8개, 사이클 13개</div></div>
+    <div class="tile"><div class="big">280</div><div class="l">측정 가능한 완료 조건</div><div class="s">“동작 확인” 같은 표현 금지</div></div>
+    <div class="tile"><div class="big">178</div><div class="l">증빙 파일 경로</div><div class="s">파일명에 작업 번호</div></div>
+    <div class="tile"><div class="big o">6</div><div class="l">진행 판정 시점</div><div class="s">되돌리기 어려운 결정 전에 기준 합의</div></div>
+  </div>
+  <p><a class="go" href="02_idec_project/README.md">README 열기</a></p>
+</section>
+
+<section id="docs">
+  <h2>로컬 HTML 문서 관리</h2>
+  <p class="lead">노션에서 쓰던 일정과 프로젝트 자료를 내 PC 의 HTML 페이지로 옮겨 관리하고 있다.
+    제출본은 홈, 캘린더, IDEC 세 페이지만 스크립트로 뽑았다. 서버와 설치가 필요 없고 외부로 요청을 보내지 않는다.</p>
+  <p><a class="go" href="03_local_docs/index.html">문서 관리 화면 열기</a> &nbsp; <a class="go" href="03_local_docs/index.html#study" style="background:#0f8a6a">중간고사 대비 강의정리</a></p>
+  <p class="meta">IDEC 페이지의 부품 155개와 네트 수는 IDEC 프로젝트의 넷리스트 파일에서 바로 뽑은 값이다. 완료 체크는 브라우저에 저장되어,
+    다른 브라우저에서 열면 지난 일정이 미완료로 보인다. 왜 직접 만들었는지는 <a href="03_local_docs/README.md">03_local_docs/README.md</a>.</p>
+</section>
+
+</main>
+<script>window.DEMO = %%DATA%%;</script>
+<script>
+(function () {
+  var D = window.DEMO;
+  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  var chip = function (cls, t) { return '<span class="chip ' + cls + '">' + esc(t) + "</span>"; };
+  var badge = function (ok, yes, no) { return ok ? chip("pass", yes || "통과") : chip("no", no || "차단"); };
+  var pct = function (v) { return Math.round(v * 100) + "%"; };
+  var step = function (n, title, status, body) {
+    return '<div class="step"><div class="k"><b>' + n + " " + esc(title) + "</b>" + status + "</div><div>" + body + "</div></div>";
+  };
+  var scope = "single", current = null;
+
+  function render(it) {
+    current = it;
+    var h = '<div class="q">“' + esc(it.question) + '”</div>';
+    if (it.route) {
+      var r = it.route, body = esc(r.message);
+      if (r.refdes.length) body += "<br>회로 기호: " + r.refdes.map(function (x) { return esc(x[0] + " = " + x[1]); }).join(", ");
+      if (r.kind === "doc" && r.question) body += "<br>문서 검색에 넘긴 질문: <code>" + esc(r.question) + "</code>";
+      h += step("0", "문서 선택", badge(r.ok, r.label, r.label), body);
+    }
+    var s = it.stages;
+    if (s) {
+      h += step("1", "품번 추출", chip("blue", s.target || "없음"),
+        s.specific ? "특정 변종을 물었습니다. 이 품번에 해당하지 않는 청크는 다음 단계에서 뺍니다." : "특정 변종이 없어 문서 전체를 대상으로 찾습니다.");
+      h += step("2", "변종 게이트", "<span>" + s.allowed + "/" + s.total + " 통과</span>",
+        "다른 변종만 적힌 청크 <b>" + s.excluded + "개 제외</b>" + (s.excluded_parts.length ? "<br>제외된 청크의 품번: " + esc(s.excluded_parts.join(", ")) : ""));
+      if (s.evidence.length) {
+        var rows = s.evidence.map(function (e, i) {
+          return "<tr><td class=num>" + (i + 1) + "</td><td class=num>" + e.page + "</td><td>" + esc(e.section) + "</td><td class=num>" + e.score.toFixed(1) + "</td><td>" + (e.names ? "●" : "") + "</td></tr>";
+        }).join("");
+        h += step("3", "BM25 검색", "<span>상위 " + s.evidence.length + "개</span>",
+          "검색 질의 <code>" + esc(s.query) + "</code><table><tr><th>순위</th><th>페이지</th><th>섹션</th><th>BM25</th><th>품번 명시</th></tr>" + rows + "</table>" +
+          '<span class="meta" style="color:var(--muted)">품번은 순위에서 빼고 내용으로 매깁니다. 품번을 명시한 근거 하나는 항상 남깁니다.</span>');
+      } else {
+        h += step("3", "BM25 검색", chip("gray", "근거 없음"),
+          s.verify_failed ? "질문한 품번을 명시한 청크가 없어 검색 결과를 쓰지 않습니다 (4단계)." : "질문 내용과 겹치는 청크가 없습니다.");
+      }
+      h += step("4", "검증 게이트", badge(!s.verify_failed),
+        s.verify_failed ? "문서 어디에도 <b>" + esc(s.target) + "</b> 를 명시한 청크가 없습니다. 답을 만들지 않습니다."
+          : (s.specific ? "질문한 품번이 문서에 실제로 있습니다." : "해당 없음"));
+      var f = s.suff;
+      h += step("5", "근거 충분성", badge(f.passed),
+        "1위 점수 <b>" + f.top.toFixed(1) + "</b> (기준 " + f.min_score + "),  용어 등장 비율 <b>" + pct(f.cov) + "</b> (기준 " + pct(f.min_cov) + ")<br>" +
+        "근거에 있음: " + esc(f.found.join(", ") || "-") + "  /  없음: <b>" + esc(f.missing.join(", ") || "-") + "</b>");
+    }
+    var m = it.model;
+    if (m.called) {
+      h += step("6", "모델 호출", chip("blue", "호출"), "<code>" + esc(m.name) + "</code>  " +
+        (m.recorded ? "입력 " + m.in.toLocaleString() + " / 출력 " + m.out.toLocaleString() + " 토큰, " + m.latency.toFixed(1) + "초"
+          : "토큰과 시간은 이 평가에서 기록하지 않았습니다"));
+    } else if (!s) {
+      h += step("6", "모델 호출", chip("gray", "호출 안 함"), "문서를 한 권으로 정하지 못해 모델을 부르지 않았습니다. 토큰 0.");
+    } else {
+      h += step("6", "모델 호출", chip("gray", "호출 안 함"), "근거가 부족해 모델을 부르지 않았습니다. 토큰 0.");
+    }
+    h += '<div class="ans ' + (it.answer === D.not_found ? "no" : "yes") + '"><b>답변</b><br>' + esc(it.answer) + "</div>";
+    var k = it.check;
+    if (k) {
+      h += '<p class="meta"><b>원문 대조</b> ' + badge(k.passed, "통과", "확인 필요") +
+        "  인용 페이지 " + (k.cited.length ? "[" + k.cited.join(", ") + "]" : "없음") +
+        (k.invalid.length ? ", 근거 밖 페이지 [" + k.invalid.join(", ") + "]" : "") +
+        ",  단위 붙은 수치 " + (k.numbers.length ? esc("[" + k.numbers.join(", ") + "]") : "없음") +
+        (k.unsupported.length ? ", 원문에 없는 수치 <b>" + esc("[" + k.unsupported.join(", ") + "]") + "</b>" : "") +
+        (k.mixed ? ", 답과 거절 문장이 섞임" : "") + "</p>";
+    }
+    var g = it.grade;
+    if (g && g.correct != null) {
+      h += '<p class="meta"><b>평가셋 채점</b> ' + badge(g.correct, "정답", "오답") +
+        (g.correct && !g.strict ? " (원문 대조는 확인 필요)" : "") +
+        (g.problems.length ? "  " + esc(g.problems.join(", ")) : "") + "</p>";
+    }
+    if (it.source) h += '<p class="meta" style="color:var(--muted)">평가셋에 적은 정답 출처: ' + esc(it.source) + "</p>";
+    if (D.notes[it.question]) h += '<div class="note">' + esc(D.notes[it.question]) + "</div>";
+    if (s && s.evidence.length) {
+      h += "<h4>근거 원문</h4>" + s.evidence.map(function (e) {
+        return "<details><summary>p." + e.page + "  " + esc(e.section) + "  (BM25 " + e.score.toFixed(1) + ")</summary><pre>" + esc(e.text) + "</pre></details>";
+      }).join("");
+    }
+    document.getElementById("result").innerHTML = h;
+    var sc = D.scenarios.filter(function (x) { return x.scope === it.scope && x.question === it.question; })[0];
+    document.getElementById("why").textContent = sc ? "확인할 것: " + sc.why : "";
+    Array.prototype.forEach.call(document.querySelectorAll("#scenarios button"), function (b) {
+      b.classList.toggle("on", b.dataset.q === it.question);
+    });
+    document.getElementById("all").value = it.id;
+  }
+
+  function find(sc, q) { return D.items.filter(function (x) { return x.scope === sc && x.question === q; })[0]; }
+
+  function setScope(sc) {
+    scope = sc;
+    Array.prototype.forEach.call(document.querySelectorAll("#scope button"), function (b) { b.classList.toggle("on", b.dataset.scope === sc); });
+    var box = document.getElementById("scenarios");
+    box.innerHTML = D.scenarios.filter(function (x) { return x.scope === sc; }).map(function (x) {
+      return '<button data-q="' + esc(x.question) + '" title="' + esc(x.why) + '"><b>' + esc(x.label) + "</b><span>" + esc(x.question) + "</span></button>";
+    }).join("");
+    Array.prototype.forEach.call(box.querySelectorAll("button"), function (b) {
+      b.onclick = function () { box2.value = ""; fill(""); render(find(scope, b.dataset.q)); };
+    });
+    var items = D.items.filter(function (x) { return x.scope === sc; });
+    var groups = {};
+    items.forEach(function (x) { (groups[x.type] = groups[x.type] || []).push(x); });
+    var sel = document.getElementById("all"), box2 = document.getElementById("filter"), count = document.getElementById("count");
+    var fill = function (f) {
+      f = (f || "").trim().toLowerCase();
+      var n = 0;
+      sel.innerHTML = Object.keys(groups).map(function (t) {
+        var hit = groups[t].filter(function (x) { return !f || (x.id + " " + x.question).toLowerCase().indexOf(f) >= 0; });
+        n += hit.length;
+        return hit.length ? '<optgroup label="' + esc((D.type_label[t] || t) + " " + hit.length) + '">' +
+          hit.map(function (x) { return '<option value="' + esc(x.id) + '">' + esc(x.id + "  " + x.question) + "</option>"; }).join("") + "</optgroup>" : "";
+      }).join("");
+      count.textContent = f ? n + "개 찾음" + (n ? "" : ". 새 질문은 Python 이 있는 PC 에서 run_demo.bat 로") : "";
+      return n;
+    };
+    box2.value = "";
+    fill("");
+    box2.oninput = function () { if (fill(box2.value)) sel.onchange(); };
+    document.querySelector('label[for="all"]').textContent = "평가셋에서 고르기 (" + items.length + "문항)";
+    sel.onchange = function () { render(items.filter(function (x) { return x.id === sel.value; })[0]); };
+    render(find(sc, D.scenarios.filter(function (x) { return x.scope === sc; })[0].question));
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll("#scope button"), function (b) {
+    b.onclick = function () { setScope(b.dataset.scope); };
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("nav button"), function (b) {
+    b.onclick = function () {
+      Array.prototype.forEach.call(document.querySelectorAll("nav button"), function (x) { x.classList.toggle("on", x === b); });
+      Array.prototype.forEach.call(document.querySelectorAll("section"), function (x) { x.classList.toggle("on", x.id === b.dataset.tab); });
+    };
+  });
+
+  var S = D.summary, C = D.catalog;
+  var tiles = [
+    [S.gate_violations + "건", "다른 변종 청크 오통과", "품번 " + S.variants_total + "종별 게이트 통과 청크 " + S.gate_checked.toLocaleString() + "건 전수 검사", ""],
+    [S.absent_blocked + "/" + S.evalset_absent, "문서에 없는 질문 차단", "모델 호출 전에 막아 토큰 0", "o"],
+    [S.hit_at_5 + "/" + S.evalset_answerable, "근거 페이지 검색", "정답 질문의 기대 페이지가 상위 5개 안", ""],
+    [C.route_ok + "/" + C.questions, "부품 전체: 문서 선택", "문서 " + C.documents + "권. 답하지 않아야 할 질문 " + C.blocked_correct + "/" + C.blocked_total + " 차단", ""],
+  ];
+  document.getElementById("tiles").innerHTML = tiles.map(function (t) {
+    return '<div class="tile"><div class="big ' + t[3] + '">' + esc(t[0]) + '</div><div class="l">' + esc(t[1]) + '</div><div class="s">' + esc(t[2]) + "</div></div>";
+  }).join("");
+
+  setScope("single");
+})();
+</script>
+<script>(function(){if(/\/AppData\/Local\/Temp\//i.test(decodeURIComponent(location.href))){var d=document.createElement('div');d.textContent='압축을 풀지 않고 연 상태입니다. 발표자료와 다른 폴더로 가는 링크가 열리지 않으니 ZIP 을 압축 풀기 한 뒤 다시 열어 주세요.';d.style.cssText='background:#FFF6DA;color:#1F2328;padding:10px 16px;font:14px/1.5 sans-serif;border-bottom:1px solid #E0C36A';document.body.insertBefore(d,document.body.firstChild);}})();</script>
+</body>
+</html>

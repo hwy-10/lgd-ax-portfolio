@@ -1,0 +1,366 @@
+[
+ {
+  "id": "A01",
+  "type": "answerable",
+  "question": "CH334U의 동작 전압(VDD33)은?",
+  "top_score": 8.104,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A02",
+  "type": "answerable",
+  "question": "V5 핀의 LDO 입력 전압 범위는?",
+  "top_score": 23.479,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A03",
+  "type": "answerable",
+  "question": "다운스트림 포트는 몇 개인가?",
+  "top_score": 8.65,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A04",
+  "type": "answerable",
+  "question": "CH334U의 동작 온도 범위는?",
+  "top_score": 5.032,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A05",
+  "type": "answerable",
+  "question": "업스트림 고속, 다운스트림 4포트 고속일 때 동작 전류는?",
+  "top_score": 19.567,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A06",
+  "type": "answerable",
+  "question": "외부 리셋 시 저레벨 펄스 폭은 얼마 이상이어야 하나?",
+  "top_score": 11.256,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A07",
+  "type": "answerable",
+  "question": "파워온 리셋 지연 시간 Trpor는 얼마인가?",
+  "top_score": 20.513,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A08",
+  "type": "answerable",
+  "question": "EEPROM 인터페이스의 SCL 클럭 주파수는?",
+  "top_score": 12.943,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A09",
+  "type": "answerable",
+  "question": "EEPROM에 설정하지 않았을 때 기본 VID 값은?",
+  "top_score": 10.129,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A10",
+  "type": "answerable",
+  "question": "OC_LEVEL 과전류 검출 임계 전압의 기본값은?",
+  "top_score": 17.983,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A11",
+  "type": "answerable",
+  "question": "저전압 리셋 Vlvr 전압의 전형값은?",
+  "top_score": 17.058,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A12",
+  "type": "answerable",
+  "question": "USB 신호 핀의 ESD 내압은?",
+  "top_score": 6.598,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A13",
+  "type": "answerable",
+  "question": "업스트림 포트에 내장된 풀업 저항 값은?",
+  "top_score": 14.524,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A14",
+  "type": "answerable",
+  "question": "외부 크리스탈 주파수는?",
+  "top_score": 4.946,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A15",
+  "type": "answerable",
+  "question": "딥 슬립 전류 ISLP의 전형값은?",
+  "top_score": 9.979,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A16",
+  "type": "answerable",
+  "question": "내부 LDO의 외부 부하 능력은?",
+  "top_score": 13.087,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A17",
+  "type": "answerable",
+  "question": "DSPORT Routing Logic은 무엇을 하는가?",
+  "top_score": 15.935,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A18",
+  "type": "answerable",
+  "question": "MTT 모드와 STT 모드의 차이는?",
+  "top_score": 9.931,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A19",
+  "type": "answerable",
+  "question": "RESET#/CDP 핀에 내장된 풀업 저항 값은?",
+  "top_score": 19.701,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "A20",
+  "type": "answerable",
+  "question": "LED4 핀 1-LED 응용에서 전류 제한 저항 R9 범위는?",
+  "top_score": 54.939,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "V01",
+  "type": "variant",
+  "question": "CH334U의 패키지는?",
+  "top_score": 4.946,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "V02",
+  "type": "variant",
+  "question": "CH334R의 패키지는?",
+  "top_score": 4.946,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "V03",
+  "type": "variant",
+  "question": "CH334P의 패키지 크기는?",
+  "top_score": 4.946,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "V04",
+  "type": "variant",
+  "question": "CH334U가 지원하는 과전류 검출 모드는?",
+  "top_score": 5.826,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "V05",
+  "type": "variant",
+  "question": "CH334R은 과전류 검출을 지원하는가?",
+  "top_score": 5.826,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "V06",
+  "type": "variant",
+  "question": "CH334Q에는 내부 LDO가 있는가?",
+  "top_score": 9.547,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "V07",
+  "type": "variant",
+  "question": "CH334H를 신규 설계에 권장하는가?",
+  "top_score": 4.854,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "V08",
+  "type": "variant",
+  "question": "CH335F가 지원하는 과전류 검출 모드는?",
+  "top_score": 5.826,
+  "coverage": 1.0,
+  "gate_blocked": false,
+  "missing": []
+ },
+ {
+  "id": "N01",
+  "type": "not_in_doc",
+  "question": "CH999Z의 동작 전압은?",
+  "top_score": 0.0,
+  "coverage": 0.0,
+  "gate_blocked": true,
+  "missing": [
+   "CH999Z"
+  ]
+ },
+ {
+  "id": "N02",
+  "type": "not_in_doc",
+  "question": "CH334U는 HDMI 2.1을 지원하는가?",
+  "top_score": 2.237,
+  "coverage": 0.0,
+  "gate_blocked": false,
+  "missing": [
+   "HDMI"
+  ]
+ },
+ {
+  "id": "N03",
+  "type": "not_in_doc",
+  "question": "CH334U의 Thunderbolt 지원 여부는?",
+  "top_score": 0.0,
+  "coverage": 0.0,
+  "gate_blocked": false,
+  "missing": [
+   "Thunderbolt"
+  ]
+ },
+ {
+  "id": "N04",
+  "type": "not_in_doc",
+  "question": "CH334U의 단가는 얼마인가?",
+  "top_score": 0.0,
+  "coverage": 0.0,
+  "gate_blocked": false,
+  "missing": [
+   "단가"
+  ]
+ },
+ {
+  "id": "N05",
+  "type": "not_in_doc",
+  "question": "CH334U에 내장된 ADC의 분해능은?",
+  "top_score": 4.381,
+  "coverage": 0.333,
+  "gate_blocked": false,
+  "missing": [
+   "분해능",
+   "ADC"
+  ]
+ },
+ {
+  "id": "N06",
+  "type": "not_in_doc",
+  "question": "CH334U의 Bluetooth 지원 여부는?",
+  "top_score": 0.0,
+  "coverage": 0.0,
+  "gate_blocked": false,
+  "missing": [
+   "Bluetooth"
+  ]
+ },
+ {
+  "id": "N07",
+  "type": "not_in_doc",
+  "question": "CH334U의 MTBF는?",
+  "top_score": 0.0,
+  "coverage": 0.0,
+  "gate_blocked": false,
+  "missing": [
+   "MTBF"
+  ]
+ },
+ {
+  "id": "N08",
+  "type": "not_in_doc",
+  "question": "CH334U의 PCIe 레인 수는?",
+  "top_score": 0.0,
+  "coverage": 0.0,
+  "gate_blocked": false,
+  "missing": [
+   "PCIe"
+  ]
+ },
+ {
+  "id": "N09",
+  "type": "not_in_doc",
+  "question": "CH335Z의 핀 배치는?",
+  "top_score": 0.0,
+  "coverage": 0.0,
+  "gate_blocked": true,
+  "missing": [
+   "CH335Z"
+  ]
+ },
+ {
+  "id": "N10",
+  "type": "not_in_doc",
+  "question": "CH334U는 AEC-Q100 차량용 인증을 받았는가?",
+  "top_score": 12.479,
+  "coverage": 0.0,
+  "gate_blocked": false,
+  "missing": [
+   "AEC",
+   "Q100"
+  ]
+ }
+]

@@ -1,0 +1,9 @@
+[
+  {"id": "R01", "question": "CH334U의 색상은?", "expect": "blocked", "why": "용어표에 없는 한국어. 판정할 용어가 없으면 막아야 한다 (GPT 검토 1.1)"},
+  {"id": "R02", "question": "CH334U의 무게는?", "expect": "blocked", "why": "GPT 검토 1.1"},
+  {"id": "R03", "question": "CH334U의 제조 공정은?", "expect": "blocked", "why": "GPT 검토 1.1"},
+  {"id": "R04", "question": "CH334U와 CH334R의 패키지 차이는?", "expect": "blocked", "why": "비교 질문. 게이트가 한 품번만 본다 (GPT 검토 1.5)"},
+  {"id": "R05", "question": "CH334U 알려줘", "expect": "blocked", "why": "무엇을 묻는지 판정할 수 없음"},
+  {"id": "R06", "question": "CH334U의 동작 전압(VDD33)은?", "expect": "passed", "why": "막는 조건을 늘린 뒤에도 정답형 질문은 통과해야 한다"},
+  {"id": "R07", "question": "V5 핀의 LDO 입력 전압 범위는?", "expect": "passed", "why": "복합 용어(입력 전압)를 AND 로 바꾼 뒤에도 통과해야 한다"}
+]
