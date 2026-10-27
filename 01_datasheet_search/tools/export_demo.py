@@ -33,7 +33,7 @@ from src.prompt import NOT_FOUND_ANSWER  # noqa: E402
 from src.variants import extract_parts  # noqa: E402
 
 OUT = ROOT / "docs" / "demo.html"
-SINGLE_RUN = "answers_ollama_gemma3_4b.json"   # 발표자료의 gemma3 1회차
+SINGLE_RUN = "answers_ollama_gemma3_4b.json"   # gemma3 평가 1회차
 CATALOG_RUN = "catalog_eval_gemma.json"
 
 # app.py 의 시나리오와 같다
@@ -52,8 +52,6 @@ SCENARIOS = [
      "TPS2552(로우)와 TPS2553(하이)를 문서별 변종 규칙으로 가르는지"),
     ("catalog", "③ 미등록 부품", "U4의 정전기 보호 전압은?",
      "BOM 에는 있지만 데이터시트가 없는 부품이면 답하지 않는지"),
-    ("catalog", "④ 두 부품", "TPS2552와 LMR33630의 입력 전압 범위 차이는?",
-     "문서가 둘로 갈리면 섞지 않고 답하지 않는지"),
 ]
 NOTES = {
     "CH334U의 동작 전압(VDD33)은?": "이 답은 평가 1회차 기록이다. 2, 3회차에는 같은 질문에 전형값 3.3 V 를 빠뜨려 오답으로 채점됐고, "
@@ -205,6 +203,17 @@ def gate_text() -> str:
     return buffer.getvalue().strip()
 
 
+def readme_html(path: Path, images: dict[str, Path] | None = None) -> str:
+    """README 를 이 화면 안에 그대로 보여 준다. 브라우저는 .md 파일을 원문 텍스트로 열기 때문이다.
+    README 가 가리키는 그림은 data URI 로 넣는다."""
+    from markdown_it import MarkdownIt
+
+    text = path.read_text(encoding="utf-8")
+    for name, image in (images or {}).items():
+        text = text.replace(f"]({name})", "](data:image/png;base64," + base64.b64encode(image.read_bytes()).decode() + ")")
+    return MarkdownIt("commonmark").enable("table").render(text)
+
+
 def md_to_html(md: str) -> str:
     """model_comparison.md 정도의 마크다운(제목, 목록, 표, 문단)만 바꾼다."""
     out, table, bullets = [], [], []
@@ -270,6 +279,10 @@ def main() -> int:
             .replace("%%MODELS%%", md_to_html((RESULTS_DIR / "model_comparison.md").read_text(encoding="utf-8")))
             .replace("%%TAKEAWAY%%", html.escape((RESULTS_DIR / "model_takeaway.txt").read_text(encoding="utf-8").strip()).replace("\n", "<br>"))
             .replace("%%CHART%%", chart)
+            .replace("%%IDEC_README%%", readme_html(ROOT / "docs" / "idec_README.md",
+                                                   {"workitem_example.png": ROOT / "docs" / "idec_img" / "workitem_example.png"}))
+            .replace("%%DOCS_README%%", readme_html(ROOT / "docs" / "docs_README.md"))
+            .replace("%%TOP_README%%", readme_html(ROOT / "docs" / "submission_README.md"))
             .replace("%%GENERATED%%", data["generated"]))
     OUT.write_text(page, encoding="utf-8")
     single = sum(i["scope"] == "single" for i in items)
